@@ -12,7 +12,8 @@ import { getLucidInstance } from './token/lib/lucid.js';
 import { transferAmount }  from './token/transfer_amount.js';
 import createWallet from './token/cerate_doner.js'
 const app = express();
-app.use(cors(), express.json());
+app.use(cors()); // This allows all origins, methods, and headers
+app.use(express.json());
 
 function convertBigIntToString(obj) {
   if (typeof obj === 'bigint') return obj.toString();
@@ -50,9 +51,9 @@ checkAdminWallet().catch(console.error);
 
 // console.log(createWallet(94742550511));
 // console.log(transferAmount(2000000,"addr_test1vperg7wz2tvexq4n0d6fant235msz6w8xhfkr2ppsguprvqadzv8x",process.env.SYSTEM_PRIVATE_KEY));
-app.post('/auth/send-otp', async (req, res) => {
+app.post('/num/send-otp', async (req, res) => {
   const { phone } = req.body;
-
+console.log('📞 OTP request for phone:', phone);
   if (!phone || !/^94\d{9}$/.test(phone)) {
     return res.status(400).json({ error: 'Valid Sri Lankan phone number required (e.g., 94712345678)' });
   }
@@ -69,7 +70,7 @@ app.post('/auth/send-otp', async (req, res) => {
   try {
 const message = `Your Token4Life verification code is: ${otp}. It will expire in 5 minutes. Do not share this code with anyone.`;
     await sendSms(phone, message); // ✅ Use your utility
-
+console.log(`📨 OTP sent to ${phone}: ${otp}`);
     return res.json({ sessionId, message: 'OTP sent successfully' });
   } catch (error) {
     console.error('❌ OTP send error:', error.message);
@@ -77,7 +78,7 @@ const message = `Your Token4Life verification code is: ${otp}. It will expire in
   }
 });
 
-app.post('/auth/verify-otp', async (req, res) => {
+app.post('/num/verify-otp', async (req, res) => {
   const { sessionId, otp, name } = req.body;
   const session = otpSessions[sessionId];
    if (!session || session.expires < Date.now()) {
@@ -177,14 +178,15 @@ if (type === 'blood') {
     const lucid = await getLucidInstance();
     await lucid.selectWallet.fromPrivateKey(donor.privateKey);
     const utxos = await lucid.wallet().getUtxos();
-    console.log(utxos);
-    if (!utxos.length) {
+    const validUtxos = utxos.filter(u => u.outputIndex === 0 && u.assets.lovelace > 0n);
+    console.log(validUtxos);
+    if (!validUtxos.length) {
   throw new Error("No UTXOs available to spend");
 }
   // const utxos = await lucid.wallet().getUtxos();
   const totalLovelace = utxos.reduce((sum, utxo) => sum + (utxo.assets.lovelace ?? 0n), 0n);
    const balance =`${totalLovelace / 1_000_000n} ADA`
-    const safeUtxos = convertBigIntToString(utxos);
+    const safeUtxos = convertBigIntToString(validUtxos);
     // Create DonationTransaction record
     const donationTransaction = await prisma.donationTransaction.create({
       data: {
@@ -293,7 +295,7 @@ app.get('/transactions/:phone', async (req, res) => {
 
 
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
   console.log(`🚀 Running on http://localhost:${PORT}`);
 });
