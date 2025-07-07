@@ -50,7 +50,6 @@ Token4Life/
 └── frontendt4l/       # React Vite frontend
     ├── src/
     │   ├── pages/         # Home, DonorDashboard, etc.
-    │   ├── components/    # Reusable UI components
     │   └── api.js         # Axios setup
     ├── public/
     └── vite.config.js
@@ -141,7 +140,21 @@ SYSTEM_PRIVATE_KEY="your_system_private_key"
 
 ## 📸 Screenshots
 
-_Add screenshots of the dashboard, wallet integration, or SMS confirmations here_
+### SMS part
+
+![SMS part](./screenshots/sms-confirmation.jpeg)
+
+### Wallet Integration
+
+![Wallet Integration](./screenshots/wallet-integration.png)
+
+### Donor Dashboard
+
+![Donor Dashboard](./screenshots/donor-dashboard.png)
+
+
+
+
 
 ---
 
