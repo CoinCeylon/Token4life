@@ -1,0 +1,30 @@
+{
+  "name": "backend",
+  "type": "module",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@blockfrost/blockfrost-js": "^6.0.0",
+    "@emurgo/cardano-serialization-lib-nodejs": "^14.1.2",
+    "@lucid-evolution/lucid": "^0.4.29",
+    "@prisma/client": "^6.11.1",
+    "axios": "^1.10.0",
+    "bip39": "^3.1.0",
+    "cardanocli-js": "^5.0.1",
+    "cors": "^2.8.5",
+    "crypto-js": "^4.2.0",
+    "dotenv": "^17.0.1",
+    "express": "^5.1.0",
+    "lucid-cardano": "^0.10.11"
+  },
+  "devDependencies": {
+    "prisma": "^6.11.1"
+  }
+}

@@ -1,0 +1,7 @@
+node_modules
+# Keep environment variables out of version control
+
+#for your pourpose only we make the env out from git ignore
+#.env
+trash
+/generated/prisma

@@ -1,0 +1,33 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+//  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model Donor {
+  id            Int                    @id @default(autoincrement())
+  name          String
+  phone         String                 @unique
+  walletAddress String
+  privateKey    String
+  transactions  DonationTransaction[]  // one-to-many relationship
+  createdAt     DateTime               @default(now())
+}
+
+model DonationTransaction {
+  id            Int       @id @default(autoincrement())
+  donorId       Int
+  type          String    // e.g. "blood" or "organ"
+  description   String    // Additional info about the donation
+  utxos         Json      @default("[]")
+  createdAt     DateTime  @default(now())
+
+  donor         Donor     @relation(fields: [donorId], references: [id])
+}
