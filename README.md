@@ -157,8 +157,13 @@ SYSTEM_PRIVATE_KEY="your_system_private_key"
 
 
 ---
+## 🎬 Demo Video
 
+Watch our project overview on YouTube:
 
+[![Token4Life Demo](https://img.youtube.com/vi/hJcZ1Veodp8/0.jpg)](https://www.youtube.com/watch?v=hJcZ1Veodp8)
+
+> _Click the image or [this link](https://www.youtube.com/watch?v=hJcZ1Veodp8) to watch the demo._
 
 ## 📄 License
 
