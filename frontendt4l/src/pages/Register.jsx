@@ -82,6 +82,7 @@ const handleSubmitTransaction = async () => {
               value={phone}
               onChange={(e) => setPhone(e.target.value)}
             />
+            <p className="text-xs text-gray-500">Use format: 94XXXXXXXXX (e.g., 94743559511)</p>
             <button
               onClick={handleSendOtp}
               className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
@@ -131,6 +132,7 @@ const handleSubmitTransaction = async () => {
               value={phone}
               onChange={(e) => setPhone(e.target.value)}
             />
+            <p className="text-xs text-gray-500">Use format: 94XXXXXXXXX (e.g., 94743559511)</p>
               <select
                 value={type}
                 onChange={(e) => setType(e.target.value)}

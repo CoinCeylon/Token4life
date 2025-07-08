@@ -89,7 +89,7 @@ cd backend
 # Install dependencies
 npm install
 # Configure your DB in .env (example using SQLite or PostgreSQL)
-# npx prisma init
+npx prisma init
 # Run migrations
 npx prisma migrate dev --name init
 # Start backend server
